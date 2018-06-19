@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-06-2018 a las 12:25:26
+-- Tiempo de generación: 18-06-2018 a las 15:35:59
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `db_evaluacion`
+-- Base de datos: `dbeval`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `agente` (
   `sector` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `idCargo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idAgente`),
-  KEY `idCargo` (`idCargo`)
+  KEY `agente_ibfk_1` (`idCargo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `compuesta` (
   `nroItem` int(11) NOT NULL,
   `puntaje` int(11) NOT NULL DEFAULT '1' COMMENT 'Puntaje entre 1 y 4',
   PRIMARY KEY (`nroFicha`,`tipoItem`,`nroItem`),
-  KEY `tipoItem` (`tipoItem`,`nroItem`)
+  KEY `compuesta_ibfk_2` (`tipoItem`,`nroItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `evaluacion` (
   `idAgenteEvaluado` int(11) NOT NULL COMMENT 'Evaluado',
   `nroFicha` int(11) NOT NULL,
   PRIMARY KEY (`idAgenteEvaluador`,`idAgenteEvaluado`),
-  KEY `idAgenteEvaluado` (`idAgenteEvaluado`)
+  KEY `evaluacion_ibfk_2` (`idAgenteEvaluado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -336,13 +336,13 @@ CREATE TABLE IF NOT EXISTS `ficha` (
 --
 
 CREATE TABLE IF NOT EXISTS `item` (
-  `tipoItem` varchar(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'H' COMMENT 'H: Habilidades C: Conocimientos A:Actitudes',
+  `tipoItem` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'H' COMMENT 'H: Habilidades C: Conocimientos A:Actitudes',
   `nroItem` int(11) NOT NULL COMMENT 'Numeros que dependen del tipoItem',
-  `nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `descripcion` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`tipoItem`,`nroItem`),
   KEY `tipoItem` (`tipoItem`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci COMMENT='Se trata de los ítems a evaluar';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Se trata de los ítems a evaluar';
 
 --
 -- Volcado de datos para la tabla `item`

@@ -292,10 +292,56 @@ desired effect
     <!-- Main content -->
     <section class="content">
       <?php 
-        $agenteLogueado = "Juanjo"; //Tengo que obtener el agente que se logueó.
-        echo "Bienvenido: ".$agenteLogueado;
-       ?>
+        $_SESSION['idEvaluador'] = 1; //Tengo que obtener el agente que se logueó.
+        echo "Bienvenido! Id evaluador: ".$_SESSION['idEvaluador']."<br>";
+        //Conexión base de datos:
+        $conexion = mysqli_connect("localhost","root","","dbeval");
+        if(mysqli_connect_error())
+          echo "Hubo un error en la conexión con la Base de Datos."."<br>";
+        else{
+          echo "<br>Conexión con la Base Exitosa.."."<br>";
+          $consulta = "SELECT  apellido, nombre FROM agente WHERE idAgente = ".$_SESSION['idEvaluador'];
+          $datos = mysqli_query($conexion, $consulta);
+          if (mysqli_num_rows($datos) > 0) {
+              // output data of each row
+              while($fila = mysqli_fetch_assoc($datos)) {
+                  //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+                  echo "El usuario es: ".$fila["apellido"]." ".$fila["nombre"]."<br>";
+              }
+          } else {
+              echo "0 results";
+          }
+          echo "------------Otra Consulta-----------"."<br>";
+          $consulta = "SELECT idAgente, nombre, apellido FROM agente WHERE sector = 'informatica'";
+          $datos = mysqli_query($conexion, $consulta) ;
+          echo "------Agentes de informática-----"."<br>";
+          if (mysqli_num_rows($datos) > 0) {
 
+
+            echo "<table class='table-striped'>
+                <tr class='col-xs-2'><th>Id</th>
+                <tr class='col-xs-5'><th>Apellido</th>
+                <tr class='col-xs-5'><th>Nombre</th>";
+       
+
+              // output data of each row
+              while($fila = mysqli_fetch_assoc($datos)) {
+                  //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+                  echo "Usuario: ".$fila["idAgente"]." Apellido: ".$fila["apellido"]." Nombre: ".$fila["nombre"]."<br>";
+              }
+
+                       echo "</table>";
+
+          } else {
+              echo "0 results";
+          }
+        }
+       ?>
+       <div class = "botonesNavegacion">
+        <a href="evaluarAgentes.php"><button type="button" class="btn btn-block btn-primary btn-sm">Evaluar Agentes</button></a>
+        <br>
+        <a href="encargados.php"><button type="button" class="btn btn-block btn-info btn-sm">Para Encargados</button></a> 
+       </div>
 
       <!-- Your Page Content Here -->
 

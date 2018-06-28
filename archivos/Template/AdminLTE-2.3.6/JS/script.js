@@ -7,7 +7,7 @@ function evaluar(idEvaluado){
 url: "PHP/evaluacion.php",
 data: "idEvaluado="+idEvaluado,
 type: "POST",
-//timeout: 6000,
+
 
 success: function(data){
     setTimeout(function(){
@@ -24,7 +24,7 @@ success: function(data){
     if(statusTxt == "error")
         alert("Error: " + xhr.status + ": " + xhr.statusText);
     })
-},500)
+},150000)
 },
 complete: function(data){
     $(".content").load("PHP/fichasbd.php", {idEvaluado: idEvaluado});
@@ -48,7 +48,7 @@ $(':radio').change(function(){
     console.log("Se hizo click en el radio: "+btn);
 
     var res = btn.split("-") ;
-    console.log("Comp literal: "+ res[0]);
+    console.log("Tipo item: "+ res[0]);
     console.log("Item n°: "+ res[1]);
     console.log("Puntuación item: "+ res[2]);
 

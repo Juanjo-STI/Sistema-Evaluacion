@@ -29,7 +29,7 @@ include "inicio.php";
  <section class="content">
 <?php 
 	//Conexión base de datos:
-	$conexion = mysqli_connect("localhost","root","","dbeval");
+	
 	session_start();
 	$_SESSION['idEvaluador'] = 1; //Tengo que obtener el agente que se logueó
 

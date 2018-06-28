@@ -1,5 +1,6 @@
 <?php
 include "inicio.php";
+
 ?>
 
     <!-- Main content -->
@@ -10,14 +11,14 @@ include "inicio.php";
 
         $agenteLogueado = "Juanjo"; //Tengo que obtener el agente que se logueó.
         $sector = $_SESSION['sector'];
-        echo "Bienvenido"."<br>";
+        echo "<p>Bienvenido"."</p>";
 
         //Conexión base de datos:
 
         $conexion = mysqli_connect("localhost","root","","dbeval");
 
         if(mysqli_connect_error())
-          echo "Hubo un error en la conexión con la Base de Datos."."<br>";
+          echo "<p>Hubo un error en la conexión con la Base de Datos."."</p>";
         else{
           echo "<p>Conexión con la base exitosa</p>";
           $consulta = "SELECT  apellido, nombre FROM agente WHERE idAgente = ".$_SESSION['idEvaluador'];
@@ -25,13 +26,13 @@ include "inicio.php";
           if (mysqli_num_rows($datos) > 0) {
 
               while($fila = mysqli_fetch_assoc($datos)) {
-                  echo "El usuario es: ".$fila["apellido"]." ".$fila["nombre"]."<br>";
+                  echo "<p>El usuario es: ".$fila["apellido"]." ".$fila["nombre"]."</p>";
               }
           } else {
               echo "Sin resultados";
           }
           
-          echo "------------Otra Consulta----------- <br/>";
+          echo "<hr/>";
           $consulta = "SELECT idAgente, nombre, apellido FROM agente WHERE sector = '$sector' ";
   
           $datos = mysqli_query($conexion, $consulta) ;

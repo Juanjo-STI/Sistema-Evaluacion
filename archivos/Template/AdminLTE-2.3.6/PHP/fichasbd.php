@@ -5,7 +5,7 @@ $arrayFinal = [];
 $comp = ['h','c','a'];
 $string = file_get_contents("../JS/auxtec.json");
 $json_a = json_decode($string,true);
-
+$nroItem;$tipoItem;$nomb;$desc;
 
 
 
@@ -28,6 +28,13 @@ foreach ($comp as $ckey => $cval) {
 					nroItem: ".$fila['nroItem']."<br/>
 					Nombre: ".$fila['nombre']."<br/>
 					Descripción".$fila['descripcion'];
+			
+					array_push($arrayFinal, [
+						'tipoItem' => $fila['tipoItem'],
+						'nroItem' => $fila['nroItem'],
+						'nomb' => $fila['nombre'],
+						'desc' => $fila['descripcion']
+					]);
 				}
 			}else{
 				echo "Sin resultados";
@@ -39,4 +46,6 @@ foreach ($comp as $ckey => $cval) {
 	}
 	echo "</ol>";
 }
+
+
 ?>

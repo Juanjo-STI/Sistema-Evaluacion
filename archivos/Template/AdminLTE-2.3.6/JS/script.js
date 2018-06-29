@@ -24,7 +24,7 @@ success: function(data){
     if(statusTxt == "error")
         alert("Error: " + xhr.status + ": " + xhr.statusText);
     })
-},150000)
+},4000)
 },
 complete: function(data){
     $(".content").load("PHP/fichasbd.php", {idEvaluado: idEvaluado});

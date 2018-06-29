@@ -1,21 +1,42 @@
 <?php
 include "conexion.php";
-session_start();
 
-$consulta = "SELECT idAgenteEvaluado, nroFicha FROM evaluacion WHERE idAgenteEvaluador = ". $_SESSION['idEvaluador'];
+$arrayFinal = [];
+$comp = ['h','c','a'];
+$string = file_get_contents("../JS/auxtec.json");
+$json_a = json_decode($string,true);
 
-	$datos = mysqli_query($conexion, $consulta);
-	if (mysqli_num_rows($datos) > 0) {
 
-	  while($fila = mysqli_fetch_assoc($datos)) {
-	      echo "<p>Id agente evaluado: ".$fila['idAgenteEvaluado']."</p>";
-	  }
-	} else {
-	  echo "La ficha se crerará a continuación:";
+
+
+foreach ($comp as $ckey => $cval) {
+	echo "<h1>".$cval."</h1>";
+	$i = 1;
+	echo "<ol>";
+	foreach ($json_a[$cval] as $jkey){
+		if ($json_a[$cval][$i] != NULL){
+			$consulta = "SELECT * FROM item WHERE tipoItem = '".$cval.
+				"' && nroItem ='".$i."'";
+			echo "<li>true</li>";
+			
+			$datos = mysqli_query($conexion, $consulta);
+			
+			if (mysqli_num_rows($datos) > 0) {
+
+				while($fila = mysqli_fetch_assoc($datos)) {
+					echo "Tipo: ".$fila['tipoItem']."<br/>
+					nroItem: ".$fila['nroItem']."<br/>
+					Nombre: ".$fila['nombre']."<br/>
+					Descripción".$fila['descripcion'];
+				}
+			}else{
+				echo "Sin resultados";
+			}
+		}else{
+		echo "<li>false</li>";
+		}
+		$i += 1;
 	}
-var_dump($consulta);
-
+	echo "</ol>";
+}
 ?>
-<script>
-	console.log("fichasbd cargado");
-</script>

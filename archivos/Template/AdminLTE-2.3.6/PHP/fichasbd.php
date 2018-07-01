@@ -14,8 +14,6 @@ function cargarFicha(){
 	$json_a = json_decode($string,true);
 	
 
-
-
 	foreach ($comp as $ckey => $cval) {
 		//echo "<h1>".$cval."</h1>";
 		$i = 1;

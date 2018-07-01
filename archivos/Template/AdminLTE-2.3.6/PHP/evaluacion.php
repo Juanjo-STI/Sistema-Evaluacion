@@ -16,6 +16,25 @@ function mostrarFicha($arrayFinal,$comp,$ckey,$cval,$json_a,$jkey){
 	global $conexion;
 
 	session_start();
+	
+	foreach ($comp as $ckey => $cval){
+	echo " <h1>". $cval ."</h1>";
+
+	foreach ($arrayFinal as $itkey => $itval){
+		if ($itval['tipoItem'] == $ckey){
+			echo "nro Item: ".$itval['tipoItem']."-".$itval['nroItem']."<br/>";
+		}else{
+			$itval['tipoItem'] += 1;
+			echo "n";
+			//break;
+		}
+		
+	}
+	
+}
+
+	echo "<hr/>";
+	/*
 	echo "<h1>Archivo cargado con load() de ajax</h1>";
 	echo "<div class='datos'><p>Id evaluador: ".$_SESSION['idEvaluador']."</p>
 				<p class='evaluador'>Id evaluado: </p>
@@ -88,5 +107,6 @@ function mostrarFicha($arrayFinal,$comp,$ckey,$cval,$json_a,$jkey){
 		echo "";
 	}
 	echo "</table>";
+	*/
 }
 ?>

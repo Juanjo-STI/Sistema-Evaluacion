@@ -58,4 +58,12 @@ function cargarFicha(){
 	mostrarFicha($arrayFinal,$comp,$ckey,$cval,$json_a,$jkey);
 }
 
+
+//function cargarItems
+
+
+
+
+
+
 ?>

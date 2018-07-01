@@ -24,13 +24,16 @@ success: function(data){
     if(statusTxt == "error")
         alert("Error: " + xhr.status + ": " + xhr.statusText);
     })
-},1500)
+},500)
 },
 complete: function(data){
-    $(".content").load("PHP/fichasbd.php", {idEvaluado: idEvaluado});
+    setTimeout(function(){
+        //$(".content").load("PHP/fichasbd.php", {idEvaluado: idEvaluado});
 
-	//Agregar algo que demuestre que se está cargando 
-	console.log("Cargando. . .");
+    	//Agregar algo que demuestre que se está cargando 
+    	console.log("Cargando. . .");
+    },100)
+
 },
 error : function(xhr, status) {
     alert('Surgió un problema');

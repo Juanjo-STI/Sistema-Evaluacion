@@ -1,6 +1,11 @@
+<!--
+
+##Archivo temporal##
+
 <!DOCTYPE html><html><head><meta charset="UTF-8"/></head><body>
 <script>console.log('Cargar items')</script>
 <?php
+/*
 require_once("evaluacion.php")
 //Cargar todos los items en LS
 function cargarItems(){
@@ -38,5 +43,6 @@ function cargarItems(){
 	echo "</script>";
 	listarAgentesSec($arrayJsoneado);
 }
-
+*/
 ?>
+-->

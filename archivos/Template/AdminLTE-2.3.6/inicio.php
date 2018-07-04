@@ -32,33 +32,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   <link rel="stylesheet" href="CSS/estilos.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <script src="JS/script.js"></script>
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -265,7 +240,7 @@ desired effect
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Otro enlace</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
             <span class="pull-right-container">
@@ -273,8 +248,7 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Enlace nivel 2 </a></li>
           </ul>
         </li>
       </ul>
@@ -292,7 +266,6 @@ desired effect
         <small>Probando</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li><a href="index.php"><i class="fa fa-dashboard"></i> Level</a></li>
       </ol>
     </section>

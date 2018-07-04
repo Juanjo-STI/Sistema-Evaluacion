@@ -1,49 +1,112 @@
 function evaluar(idEvaluado){
 
-	console.log("idEvaluado "+idEvaluado);
- 
-	$.ajax({
+    //Envia los datos de la evaluacion
+    console.log("Id del Evaluado: "+idEvaluado);
 
-url: "PHP/evaluacion.php",
-data: "idEvaluado="+idEvaluado,
-type: "POST",
+    $.ajax({
+
+        url: "PHP/evaluacion.php",
+        beforeSend: function (){
+            itemsJson(itemsLS);
+            console.log("Cargando. . ");
+        },
+        success: function(data){
+            setTimeout(function(){
 
 
-success: function(data){
-    setTimeout(function(){
-	console.log("Datos enviados con éxito");
-    $(".content").load("PHP/evaluacion.php", {idEvaluado: idEvaluado}, function(responseTxt, statusTxt, xhr){
-    if(statusTxt == "success"){
-        console.log("Archivo evaluacion cargado con éxito!");
-        $('form').garlic(); //Recarga Garlic
-    	$(".evaluador").append(idEvaluado);
-        eventoclick();      // Luego del ajax, reestablezco los 
-                            //escuchas (opcional?)
-	}
-	
-    if(statusTxt == "error")
-        alert("Error: " + xhr.status + ": " + xhr.statusText);
+                //Carga la página
+                $(".content").load("PHP/evaluacion.php", {idEvaluado: idEvaluado}, function(responseTxt, statusTxt, xhr){
+                    if(statusTxt == "success"){
+                        console.log("Datos enviados con éxito");
+                        eventoclick();      // Luego del ajax, reestablezco los 
+                        //escuchas (opcional?)
+                    }
+
+                    if(statusTxt == "error")
+                        console.log("Error: " + xhr.status + ": " + xhr.statusText);
+                })
+            },200)
+            },
+            complete: function(data){
+            setTimeout(function(){
+            console.log("Fin de AJAX");
+            },100)
+
+            },
+            error : function(xhr, status) {
+            console.log('Surgió un problema(itemsLS)');
+        },
+
+
     })
-},500)
-},
-complete: function(data){
-    setTimeout(function(){
-        //$(".content").load("PHP/fichasbd.php", {idEvaluado: idEvaluado});
+}
 
-    	//Agregar algo que demuestre que se está cargando 
-    	console.log("Cargando. . .");
-    },100)
+//Envia el arreglo de todos los items en formado string contenidos en LS para luego ser decodificado(JSON)
+function itemsJson(itemsLS){
+    var itemsLS = localStorage.getItem('itemsLS');
+    $.ajax({
+        url: "fichasbd.php",
+        type: 'post',
+        data: JSON.stringify(itemsLS),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(msg){
+            console.log("JSON: "+msg);
+        },
+        complete: function(data){
+            setTimeout(function(){
+                console.log("Fin de Json");
+            },100)
 
-},
-error : function(xhr, status) {
-    alert('Surgió un problema');
-},
-
-})
+        },
+        error : function(xhr, status) {
+            console.log('Surgió un problema Json');
+        },
+    })
 }
 
 
-function eventoclick(){
+
+//Envia si están los items en el LS o no (string)
+function locstor(siLS){
+    $.ajax({
+        url: 'agentes.php',
+        data: "siLS ="+siLS,
+        type: 'post',
+        success: function(msg){
+            console.log("siLS: "+ siLS);
+            $.load('listaAgentes.php',{siLS:siLS})
+        },
+        complete: function(data){
+          setTimeout(function(){
+                console.log("Fin de ajax");
+            },100)
+        },
+        error : function(xhr, status) {
+            console.log('Surgió un problema(LS)'+xhr.status);
+        },
+    })
+}
+
+//click index, verifica LS
+function clickIndex(){
+$('#btnIndex').click(function(){
+        if (localStorage.getItem('itemsLS') != null){
+            siLS = true;
+            console.log("Items en LS :"+siLS);
+            locstor(siLS);
+                
+        }else{
+            siLS = false;
+            console.log("Items en LS :"+siLS);
+        }
+
+    })
+}
+
+
+//Implementar para que salte la descripción de cada puntuación y haga un insert/update
+function radioclick(){
 $(':radio').change(function(){
     var btn = $(this).attr("name");
     var btnid = $(this).attr("id");

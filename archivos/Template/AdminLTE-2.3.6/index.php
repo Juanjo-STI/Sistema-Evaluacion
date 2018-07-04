@@ -37,7 +37,7 @@ require_once("inicio.php");
         }
 
       echo "<div class = 'botonesNavegacion'>
-        <a href='evaluarAgentes.php'><button type='button' class='btn btn-block btn-primary btn-sm-4'>Evaluar Agentes</button></a>
+        <a href='agentes.php' id='btnIndex'><button type='button' class='btn btn-block btn-primary btn-sm-4' onclick='clickIndex()'>Evaluar Agentes</button></a>
         <br/>
         <a href='encargados.php'><button type='button' class='btn btn-block btn-info btn-sm-5'>Para Encargados</button></a> 
       </div>";

@@ -1,5 +1,7 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"/></head><body>
 <?php
 $conexion = mysqli_connect("localhost","root","root","dbeval");
+$conexion->set_charset("utf8");
 $conex;
 function datosConex(){
 	if(mysqli_connect_error()){

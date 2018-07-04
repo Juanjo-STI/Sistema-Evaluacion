@@ -101,11 +101,5 @@
 <!-- AdminLTE App -->
 <script src="Plantilla/dist/js/app.min.js"></script>
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. Slimscroll is required when using the
-     fixed layout. -->
-     <script src="Plantilla/plugins/Garlicjs/garlic.js"></script>
-     <script src="JS/script.js"></script>
 </body>
 </html>

@@ -1,14 +1,14 @@
-<!--
-
-##Archivo temporal##
-
-<!DOCTYPE html><html><head><meta charset="UTF-8"/></head><body>
-<script>console.log('Cargar items')</script>
 <?php
-/*
-require_once("evaluacion.php")
-//Cargar todos los items en LS
+require_once("conexion.php");
+session_start();
+
+$_SESSION['siLS'] = $_POST['siLS'];
+if ($_SESSION['siLS'] != 'true'){
+	cargarItems();
+}
+
 function cargarItems(){
+
 	global $conexion;
 
 	$arrayFinal = [];
@@ -30,19 +30,10 @@ function cargarItems(){
 		}
 	}
 	$arrayJsoneado = json_encode($arrayFinal, JSON_UNESCAPED_UNICODE);
-	echo "<script>";
+	
+	//Devuelve el arreglo de items a la llamada AJAX, para luego ser almacenada
+	echo $arrayJsoneado;
+	$_SESSION['siLS'] = 'true';
 
-	echo "
-	try{
-		localStorage.setItem('fullitems', JSON.stringify($arrayJsoneado));
-		console.log('Todos los items guardados en localStorage');
-	}
-	catch(err){
-		console.log('Hubo un problema en el guardado de items al localStorage');
-	}";
-	echo "</script>";
-	listarAgentesSec($arrayJsoneado);
 }
-*/
 ?>
--->

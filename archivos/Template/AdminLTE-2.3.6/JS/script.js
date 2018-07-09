@@ -1,3 +1,54 @@
+//Llamados desde index.php
+//click index, verifica LS
+$('#btnIndex').one("click",function(){
+        if (localStorage.getItem('itemsLS') != null){
+            siLS = true;
+            console.log("Items en LS :"+siLS);
+                
+        }else{
+            siLS = false;
+            console.log("Items en LS :"+siLS);
+            locstor(siLS);
+            
+        }
+        setTimeout(function(){
+            window.location.href = "agentes.php";
+        },200)
+})
+
+//Envia si están los items en el LS o no (string)
+//En base a esto los items se cargan o no en el LS
+function locstor(siLS){
+    $.ajax({
+        url: 'PHP/cargarEnLS.php',
+        data: {"siLS":siLS},
+        type: 'post',
+        success: function(data){
+            console.log("Se cargarán los items en el localStorage");
+            try{
+                localStorage.setItem('itemsLS', data);
+                console.log('Todos los items guardados en localStorage');
+            }
+            catch(err){
+                console.log('Hubo un problema en el guardado de items al localStorage');
+            }
+        },
+
+        error : function(xhr, status) {
+            console.log('Surgió un problema(LS)'+xhr.status);
+        },
+
+        complete: function(data){
+ 
+                console.log("Fin de ajax (LS)");
+
+        }
+    })
+}
+
+
+
+//Llamados desde agentes.php
 function evaluar(idEvaluado){
 
     //Envia los datos de la evaluacion
@@ -45,7 +96,7 @@ function evaluar(idEvaluado){
 function itemsJson(itemsLS){
     var itemsLS = localStorage.getItem('itemsLS');
     $.ajax({
-        url: "fichasbd.php",
+        url: "evaluacion.php",
         type: 'post',
         data: JSON.stringify(itemsLS),
         contentType: 'application/json; charset=utf-8',
@@ -66,43 +117,6 @@ function itemsJson(itemsLS){
 }
 
 
-
-//Envia si están los items en el LS o no (string)
-function locstor(siLS){
-    $.ajax({
-        url: 'agentes.php',
-        data: "siLS ="+siLS,
-        type: 'post',
-        success: function(msg){
-            console.log("siLS: "+ siLS);
-            $.load('listaAgentes.php',{siLS:siLS})
-        },
-        complete: function(data){
-          setTimeout(function(){
-                console.log("Fin de ajax");
-            },100)
-        },
-        error : function(xhr, status) {
-            console.log('Surgió un problema(LS)'+xhr.status);
-        },
-    })
-}
-
-//click index, verifica LS
-function clickIndex(){
-$('#btnIndex').click(function(){
-        if (localStorage.getItem('itemsLS') != null){
-            siLS = true;
-            console.log("Items en LS :"+siLS);
-            locstor(siLS);
-                
-        }else{
-            siLS = false;
-            console.log("Items en LS :"+siLS);
-        }
-
-    })
-}
 
 
 //Implementar para que salte la descripción de cada puntuación y haga un insert/update

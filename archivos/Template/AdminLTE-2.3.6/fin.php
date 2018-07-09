@@ -97,6 +97,10 @@
 <!-- jQuery 2.2.3 -->
 <script src="Plantilla/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
+<!--Script del sistema-->
+<script src="JS/script.js"></script>
+
+
 <script src="Plantilla/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="Plantilla/dist/js/app.min.js"></script>

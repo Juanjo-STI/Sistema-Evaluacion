@@ -1,27 +1,13 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"/></head><body>
 <?php 
 require_once("inicio.php");
 ?>
 
 <section class="content">
 <?php   
-  //Variable que indica si los items están en el localStorage   	
-  $siLS = $_POST['siLS'];
-
   //Verificar la conexión
   $conex = datosConex();
   if ($conex==true){
-    //Comprobar si es necesario guardar los items en el LS
-    if($siLS == 'true'){
      listarAgentesSec();
-     var_dump($siLS);
-     echo "TrUE";
-    }else{
-      echo "FALSE";
-           var_dump($siLS);
-      cargarItems();
-      listarAgentesSec();
-    }
   }
 
 
@@ -70,49 +56,7 @@ require_once("inicio.php");
      echo "<p>Sin resultados</p>";
     }
   } 
-
-
-  //Carga los items de la base de datos y los guarda en el LocalStorage
-  function cargarItems(){
-    //Variables
-    global $conexion;
-
-    $arrayFinal = [];
-
-
-    $consulta = "SELECT * FROM item";
-    $datos = mysqli_query($conexion, $consulta);
-
-    if (mysqli_num_rows($datos) > 0) {
-      while($fila = mysqli_fetch_assoc($datos)) {
-
-        //Inserta todos los items con sus datos al arreglo
-        array_push($arrayFinal, [
-          'tipoItem' => $fila['tipoItem'],
-          'nroItem' => $fila['nroItem'],
-          'nomb' => $fila['nombre'],
-          'desc' => $fila['descripcion']
-        ]);
-     }
-    }
-
-    //Arreglo con los items en formato JSON
-    $arrayJsoneado = json_encode($arrayFinal, JSON_UNESCAPED_UNICODE);
-
-    //Guarda los items en el localStorage
-    echo "<script>";
-    echo "
-        try{
-          localStorage.setItem('itemsLS', JSON.stringify($arrayJsoneado));
-          console.log('Todos los items guardados en localStorage');
-        }
-          catch(err){
-          console.log('Hubo un problema en el guardado de items al localStorage');
-        }";
-    echo "</script>";
-  }
 ?>
-
 <?php
 include "fin.php";
 ?>

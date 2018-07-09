@@ -3,29 +3,35 @@ require_once("inicio.php");
 ?>   
 <section class="content">
   <?php 
+
+
     //Verificar la conexión
     $conex = datosConex();
     if ($conex==true){
+      $_SESSION['idEvaluador'] = 1; //Tengo que obtener el agente que se logueó
       datosEvaluador();
+    }else{
+      echo '<h2>Error de conexión</h2>';
     }
-
-  	$_SESSION['idEvaluador'] = 1; //Tengo que obtener el agente que se logueó
 
 
     function datosEvaluador(){
       global $conexion;
-      echo "<p>Bienvenido! Id evaluador: ".$_SESSION['idEvaluador']."</p>";
+
       //Nombre y apellido del evaluador
       $consulta = "SELECT  apellido, nombre FROM agente WHERE idAgente = ".$_SESSION['idEvaluador'];
       $datos = mysqli_query($conexion, $consulta);
       if (mysqli_num_rows($datos) > 0) {
 
         while($fila = mysqli_fetch_assoc($datos))
-        echo "<p>El usuario es: ".$fila["apellido"]." ".$fila["nombre"]."</p>";
+        echo "<p>Bienvenido ".$fila["apellido"]." ".$fila["nombre"]."</p>";
         
       }else{
         echo "<p>Sin resultados</p>";
       }
+
+
+      //Sector del evaluador
       $consulta = "SELECT sector FROM agente WHERE idAgente = ".$_SESSION['idEvaluador'];
       $datos = mysqli_query($conexion, $consulta);
 
@@ -37,12 +43,12 @@ require_once("inicio.php");
         }
 
       echo "<div class = 'botonesNavegacion'>
-        <a href='agentes.php' id='btnIndex'><button type='button' class='btn btn-block btn-primary btn-sm-4' onclick='clickIndex()'>Evaluar Agentes</button></a>
+        <button id='btnIndex' class='btn btn-block btn-primary btn-sm-4' >Evaluar Agentes</button></a>
         <br/>
         <a href='encargados.php'><button type='button' class='btn btn-block btn-info btn-sm-5'>Para Encargados</button></a> 
       </div>";
       }else{
-        echo "<p>Sin resultados</p>";
+        echo "<p>Error al obtener el sector del evaluador</p>";
       }
     }
 

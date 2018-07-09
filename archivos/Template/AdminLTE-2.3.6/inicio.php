@@ -32,7 +32,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   <link rel="stylesheet" href="CSS/estilos.css">
 
-  <script src="JS/script.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -266,6 +265,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <small>Probando</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="index.php"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li><a href="index.php"><i class="fa fa-dashboard"></i> Inicio</a></li>
       </ol>
     </section>

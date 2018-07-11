@@ -1,14 +1,16 @@
-<script>console.log(its);</script>
 <?php
 
 //require_once("fichasbd.php");  
 require_once("conexion.php");
-	$idEvaluado = $_REQUEST['idEvaluado'];
-	$itemsLS = $_REQUEST['itemsLS'];
+	$idEvaluado = $_GET['idEvaluado'];
+	$itemsLS = json_decode(file_get_contents('php://input'));
+
   //Verificar la conexión
 	$conex = datosConex();
 	if ($conex==true){
-		cargarItems();
+		//cargarItems();
+		echo "GET, idEvaluado: ". $idEvaluado."<br/>";
+		var_dump($itemsLS[0]->tipoItem);
 	}
 
 function mostrarFicha(){
@@ -28,9 +30,6 @@ function mostrarFicha(){
 	3=>'info',
 	4=>'success'
 	];
-
-	$itemsLS = json_decode($itemsLS);
-	var_dump(itemsLS);
 
 	session_start();
 	

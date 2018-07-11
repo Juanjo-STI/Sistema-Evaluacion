@@ -1,16 +1,18 @@
 //Llamados desde index.php
-//click index, verifica LS
+
+//Luego de clickear el boton para evaluar en index.php se evalua si 
+//los items están contenidos en el localStorage
 $('#btnIndex').one("click",function(){
         if (localStorage.getItem('itemsLS') != null){
             siLS = true;
             console.log("Items en LS :"+siLS);
-                
         }else{
+            //Si localStorage está vacío se llama a la función locstor
             siLS = false;
             console.log("Items en LS :"+siLS);
             locstor(siLS);
-            
         }
+        //redirige a la lista de agentes a evaluar
         setTimeout(function(){
             window.location.href = "agentes.php";
         },200)
@@ -25,22 +27,23 @@ function locstor(siLS){
         type: 'post',
         success: function(data){
             console.log("Se cargarán los items en el localStorage");
+            //data recibe los items cargados desde la base de datos, pasados a un arreglo
             try{
                 localStorage.setItem('itemsLS', data);
                 console.log('Todos los items guardados en localStorage');
             }
             catch(err){
-                console.log('Hubo un problema en el guardado de items al localStorage');
+                console.log('Hubo un problema en el guardado de items al localStorage. '+err);
             }
         },
 
         error : function(xhr, status) {
-            console.log('Surgió un problema(LS)'+xhr.status);
+            console.log('Surgió un problema en locstor'+xhr.status);
         },
 
         complete: function(data){
  
-                console.log("Fin de ajax (LS)");
+                console.log("Fin de ajax locstor");
 
         }
     })
@@ -49,77 +52,32 @@ function locstor(siLS){
 
 
 //Llamados desde agentes.php
+
+//Envia todos los items contenidos en localStorage para luego ser decodificados en evaluacion.php
 function evaluar(idEvaluado){
 
     //Envia los datos de la evaluacion
     console.log("Id del Evaluado: "+idEvaluado);
-
-    $.ajax({
-
-        url: "PHP/evaluacion.php",
-        beforeSend: function (){
-            itemsJson(itemsLS);
-            console.log("Cargando. . ");
-        },
-        success: function(data){
-            setTimeout(function(){
-
-
-                //Carga la página
-                $(".content").load("PHP/evaluacion.php", {idEvaluado: idEvaluado}, function(responseTxt, statusTxt, xhr){
-                    if(statusTxt == "success"){
-                        console.log("Datos enviados con éxito");
-                        eventoclick();      // Luego del ajax, reestablezco los 
-                        //escuchas (opcional?)
-                    }
-
-                    if(statusTxt == "error")
-                        console.log("Error: " + xhr.status + ": " + xhr.statusText);
-                })
-            },200)
-            },
-            complete: function(data){
-            setTimeout(function(){
-            console.log("Fin de AJAX");
-            },100)
-
-            },
-            error : function(xhr, status) {
-            console.log('Surgió un problema(itemsLS)');
-        },
-
-
-    })
-}
-
-//Envia el arreglo de todos los items en formado string contenidos en LS para luego ser decodificado(JSON)
-function itemsJson(itemsLS){
     var itemsLS = localStorage.getItem('itemsLS');
     $.ajax({
-        url: "evaluacion.php",
-        type: 'post',
-        data: JSON.stringify(itemsLS),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function(msg){
-            console.log("JSON: "+msg);
+        url: "PHP/evaluacion.php?idEvaluado="+idEvaluado,
+        data: itemsLS,
+        type: 'POST',
+        success: function(data){
+            console.log("items enviados con éxito");
+            console.log(data);
+            //redirigir
         },
-        complete: function(data){
-            setTimeout(function(){
-                console.log("Fin de Json");
-            },100)
-
-        },
-        error : function(xhr, status) {
-            console.log('Surgió un problema Json');
-        },
+        error: function(){
+            console.log("Error enviando items");
+        }
     })
 }
 
 
 
-
-//Implementar para que salte la descripción de cada puntuación y haga un insert/update
+/*
+Implementar para que salte la descripción de cada puntuación y haga un insert/update
 function radioclick(){
 $(':radio').change(function(){
     var btn = $(this).attr("name");
@@ -132,7 +90,6 @@ $(':radio').change(function(){
     console.log("Item n°: "+ res[1]);
     console.log("Puntuación item: "+ res[2]);
 
-/*
     $.ajax({
 
     url: "PHP/descripjson.php",
@@ -142,6 +99,7 @@ $(':radio').change(function(){
 
 
 
-    })*/
+    })
 })
 }
+*/
